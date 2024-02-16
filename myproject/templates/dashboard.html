@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<!--=============================================================-->
+<div class="card-box mb-30">
+						<div class="pd-20">
+							<h4 class="text-blue h4 text-center"><u>Item's Data Table</u></h4>
+
+						</div>
+						<div class="pb-20">
+							<table class="data-table table stripe hover nowrap">
+								<thead>
+									<tr>
+										<th class="table-plus datatable-nosort">Item Name</th>
+                                        <th>Sale Price</th>
+                                        <th>Purchase Price</th>
+										<th>Total Sale</th>
+										<th>Sale Qty</th>
+										<th>Balance Qty</th>
+                                        <th>GP</th>
+									</tr>
+								</thead>
+								<tbody>
+                                {% for i in c_product %}
+									<tr>
+										<td class="table-plus">{{i.product__item_name}}</td>
+                                        <td>{{i.product__sell_price}}</td>
+                                        <td>{{i.product__pruchase_price}}</td>
+										<td>{{i.sum}}</td>
+                                        <td>{{i.quantity}}</td>
+										<td>{{i.product__balance_qty}}</td>
+                                        <td>{{i.pur}}</td>
+
+									</tr>
+                                {% endfor %}
+
+								</tbody>
+                                <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total Sale Amount</td>
+                                    <td>{{sale_total}}</td>
+                                    <td>{{total_sale_qty}}</td>
+                                    <td>Total GP</td>
+                                    <td>{{gp_total.gp}}</td>
+
+                                </tr>
+                                </tfoot>
+							</table>
+						</div>
+					</div>
+
+<div class="row">
+
+
+</div>
+
+
+
+
+{% endblock content %}
