@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import *
 
 from django.contrib.auth import authenticate, login, logout
@@ -21,26 +21,61 @@ class Department_Setup(View):
         return render(request, 'department_setup.html', context)
 
     def post(self,request):
-        pass
+        dept = department.objects.all()
+        dept_name = request.POST.get('department_name')
+        message = None
+        if not dept_name:
+            message = 'please enter department name'
+        if not message:
+            d = department(department_name=dept_name)
+            d.save()
+            return redirect(request.META['HTTP_REFERER'])
+        else:
+            dept = department.objects.all()
+            message = 'please enter department name'
+            context = {'dept':dept, 'message': message}
+            return render(request, 'department_setup.html', context)
 
-# class CategoryCreate(View):
-#     def get(self,request):
-#         category = Category.objects.all()
-#         item_list = Items.objects.all()
-#         message = None
-#         context = {'item_list': item_list, 'category': category, 'message': message}
-#         return render(request, 'categorycreate.html', context)
-#     def post(self,request):
-#         category_name = request.POST.get('category_name')
-#         message = None
-#         if not category_name:
-#             message = 'please enter category name'
-#         if not message:
-#             cate = Category(category_name=category_name)
-#             cate.save()
-#             return redirect(request.META['HTTP_REFERER'])
-#         else:
-#             category = Category.objects.all()
-#             message = 'please enter category name'
-#             return render(request, 'categorycreate.html', {'message':message,'category':category})
+class Position_Setup(View):
+    def get(self,request):
+        pst = position.objects.all()
+        context = {'pst':pst}
+        return render(request, 'position.html', context)
+
+    def post(self,request):
+        pst = position.objects.all()
+        pst_name = request.POST.get('position')
+        message = None
+        if not pst_name:
+            message = 'please enter postion name'
+        if not message:
+            d = position(position=pst_name)
+            d.save()
+            return redirect(request.META['HTTP_REFERER'])
+        else:
+            pst = position.objects.all()
+            context = {'pst':pst}
+            return render(request, 'position.html', context)
+
+class Region_Setup(View):
+    def get(self,request):
+        st = state_region.objects.all()
+        context = {'st':st}
+        return render(request, 'region_setup.html', context)
+
+    def post(self,request):
+        st = state_region.objects.all()
+        st_name = request.POST.get('state_name')
+        message = None
+        if not st_name:
+            message = 'please enter postion name'
+        if not message:
+            d = state_region(state_name=st_name)
+            d.save()
+            return redirect(request.META['HTTP_REFERER'])
+        else:
+            pst = state_region.objects.all()
+            context = {'st':st}
+            return render(request, 'region_setup.html', context)
+
 

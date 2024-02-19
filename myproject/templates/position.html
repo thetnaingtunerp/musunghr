@@ -24,7 +24,7 @@
 									data-target="#Medium-modal"
 									type="button"
 								>
-									+ Add Department
+									+ Add Position
 								</a>
 								<div
 									class="modal fade"
@@ -39,7 +39,7 @@
 										<div class="modal-content">
 											<div class="modal-header">
 												<h4 class="modal-title" id="myLargeModalLabel">
-													Add Department
+													Add POsition
 												</h4>
 												<button
 													type="button"
@@ -53,9 +53,9 @@
 
 											<div class="modal-body">
 												<div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Department Name</label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Position Name</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control" type="text" placeholder="" name="department_name">
+                        <input class="form-control" type="text" placeholder="" name="position">
                     </div>
                 </div>
 											</div>
@@ -68,7 +68,7 @@
 													Close
 												</button>
 												<button type="submit" class="btn btn-primary">
-													Save Department
+													Save Position
 												</button>
 											</div>
 										</div>
@@ -82,16 +82,16 @@
             <thead>
             <tr class="table-warning">
 
-                <th class="text-center">Department Name</th>
+                <th class="text-center">Position Name</th>
 
 
 
             </tr>
             </thead>
             <tbody>
-            {% for p in dept %}
+            {% for p in pst %}
             <tr class="table-info">
-                <td class="table-plus text-center"><b>{{p.department_name}}</b></td>
+                <td class="table-plus text-center"><b>{{p.position}}</b></td>
             </tr>
             {% endfor %}
 
