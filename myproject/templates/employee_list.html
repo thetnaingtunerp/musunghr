@@ -16,7 +16,7 @@
 	  <br>
 	{% endif %}
     <div class="pd-20">
-        <a href="#" class="h4 text-blue">Employee List</a>
+        <a href="#" class="btn btn-sm btn-primary">+ Add New Employee</a>
 
         
 
@@ -26,16 +26,14 @@
             <thead>
             <tr class="table-primary">
 
+                <th class="text-center">ID</th>
                 <th class="text-center">Employee Name</th>
-                <th class="text-center">Employee Name</th>
-                <th class="text-center">Employee Name</th>
-                <th class="text-center">Employee Name</th>
-                <th class="text-center">Employee Name</th>
-                <th class="text-center">Employee Name</th>
-                <th class="text-center">Employee Name</th>
-                <th class="text-center">Employee Name</th>
-                <th class="text-center">Employee Name</th>
-                <th class="text-center">Employee Name</th>
+                <th class="text-center">SSB ID</th>
+                <th class="text-center">NRC No</th>
+                <th class="text-center">Entry Date</th>
+                <th class="text-center">Phone</th>
+                <th class="text-center">More Details</th>
+                
 
 
 
@@ -44,16 +42,17 @@
             <tbody>
             {% for p in emp %}
             <tr class="">
-                <td class="table-plus text-center"><b>vv</b></td>
-                <td>mm</td>
-                <td>mm</td>
-                <td>mm</td>
-                <td>mm</td>
-                <td>mm</td>
-                <td>mm</td>
-                <td>mm</td>
-                <td>mm</td>
-                <td>mm</td>
+                <td class="table-plus text-center"><b>{{p.employee_id}}</b></td>
+                <td>{{p.employee_name}}</td>
+                <td>{{p.ssb_id}}</td>
+                <td>{{p.nrc_no}}</td>
+                <td>{{p.entrydate}}</td>
+                <td>{{p.phone}}</td>
+                <td>
+                    <a href="#" class="btn btn-sm btn-outline-info">View More</a>                    
+                </td>
+                
+                
             </tr>
             
             {% endfor %}
