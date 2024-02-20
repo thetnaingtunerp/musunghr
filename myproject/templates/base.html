@@ -446,13 +446,24 @@
 						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
 								<span class="micon bi bi-tools"></span
+								><span class="mtext">Employee</span>
+							</a>
+							<ul class="submenu">
+								<li><a href="{% url 'myapp:Employee_List' %}">EmployeeList</a></li>
+								
+								
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle">
+								<span class="micon bi bi-tools"></span
 								><span class="mtext">Setup</span>
 							</a>
 							<ul class="submenu">
 								<li><a href="{% url 'myapp:Department_Setup' %}">Department</a></li>
 								<li><a href="{% url 'myapp:Position_Setup' %}">Position</a></li>
 								<li><a href="{% url 'myapp:Region_Setup' %}">State/Region</a></li>
-								<li><a href="{% url 'myapp:Department_Setup' %}">Township</a></li>
+								<li><a href="{% url 'myapp:Township_Setup' %}">Township</a></li>
 								
 							</ul>
 						</li>
@@ -511,6 +522,12 @@
 		<script src="{% static 'src/plugins/datatables/js/vfs_fonts.js' %}"></script>
 		<!-- Datatable Setting js -->
 		<script src="{% static 'vendors/scripts/datatable-setting.js' %}"></script>
+		<script src="{% static 'vendors/scripts/advanced-components.js' %}"></script>
+
+		<script src="{% static 'src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>
+		<!-- bootstrap-touchspin js -->
+		<script src="{% static 'src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js' %}"></script>
+
 		<!-- Google Tag Manager (noscript) -->
 <!--		<script src="{% static 'src/plugins/apexcharts/apexcharts.min.js' %}"></script>-->
 <!--		<script src="{% static 'vendors/scripts/apexcharts-setting.js' %}"></script>-->

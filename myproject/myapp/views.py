@@ -78,4 +78,32 @@ class Region_Setup(View):
             context = {'st':st}
             return render(request, 'region_setup.html', context)
 
+class Township_Setup(View):
+    def get(self, request):
+        ts = township.objects.all()
+        st = state_region.objects.all()
+        context = {'ts':ts, 'st':st}
+        return render(request, 'township_setup.html', context)
+    
+    def post(self,request):
+        st_name = request.POST.get('state')
+        ts_name = request.POST.get('township')
+        message = None
+        if not st_name:
+            message = 'please enter state name'
+        if not message:
+            d = township(state=st_name,township=ts_name)
+            d.save()
+            return redirect(request.META['HTTP_REFERER'])
+        else:
+            ts = township.objects.all()
+            st = state_region.objects.all()
+            context = {'ts':ts, 'st':st, 'message':message}
+            return render(request, 'township_setup.html', context)
+
+class Employee_List(View):
+    def get(self, request):
+        emp = employee_profile.objects.all()
+        context = {'emp':emp}
+        return render(request, 'employee_list.html', context)
 

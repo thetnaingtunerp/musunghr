@@ -18,3 +18,5 @@ admin.site.register(state_region,stateadmin)
 class townshipadmin(admin.ModelAdmin):
     list_display = ('id','township','state','created_at','updated_at')
 admin.site.register(township,townshipadmin)
+
+admin.site.register(employee_profile)

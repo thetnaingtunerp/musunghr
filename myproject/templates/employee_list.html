@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<!--=============================================================-->
+<div class="card-box mb-30">
+	{% if message %}
+	
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<strong>{{message}}</strong>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	  </div>
+	  <br>
+	{% endif %}
+    <div class="pd-20">
+        <a href="#" class="h4 text-blue">Employee List</a>
+
+        
+
+    </div>
+    <div class="pb-20">
+        <table class="data-table table stripe hover nowrap">
+            <thead>
+            <tr class="table-primary">
+
+                <th class="text-center">Employee Name</th>
+                <th class="text-center">Employee Name</th>
+                <th class="text-center">Employee Name</th>
+                <th class="text-center">Employee Name</th>
+                <th class="text-center">Employee Name</th>
+                <th class="text-center">Employee Name</th>
+                <th class="text-center">Employee Name</th>
+                <th class="text-center">Employee Name</th>
+                <th class="text-center">Employee Name</th>
+                <th class="text-center">Employee Name</th>
+
+
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for p in emp %}
+            <tr class="">
+                <td class="table-plus text-center"><b>vv</b></td>
+                <td>mm</td>
+                <td>mm</td>
+                <td>mm</td>
+                <td>mm</td>
+                <td>mm</td>
+                <td>mm</td>
+                <td>mm</td>
+                <td>mm</td>
+                <td>mm</td>
+            </tr>
+            
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}
+
