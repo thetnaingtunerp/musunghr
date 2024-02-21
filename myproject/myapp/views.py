@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import *
+from .form import *
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import AnonymousUser
@@ -107,3 +108,10 @@ class Employee_List(View):
         context = {'emp':emp}
         return render(request, 'employee_list.html', context)
 
+class EmployeeCreate(CreateView):
+    template_name = 'employee_create.html'
+    form_class = employee_profile_form
+    success_url = reverse_lazy('myapp:Employee_List')
+
+    def form_valid(self, form):
+        return super().form_valid(form)

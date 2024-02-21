@@ -9,4 +9,5 @@ urlpatterns = [
     path('Region_Setup/', Region_Setup.as_view(), name='Region_Setup'),
     path('Township_Setup/', Township_Setup.as_view(), name='Township_Setup'),
     path('Employee_List/', Employee_List.as_view(), name='Employee_List'),
+    path('EmployeeCreate/', EmployeeCreate.as_view(), name='EmployeeCreate'),
 ]
