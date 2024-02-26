@@ -18,6 +18,34 @@ class position(models.Model):
     def __str__(self):
         return self.position
 
+
+class marital(models.Model):
+    status = models.CharField(max_length=225)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.status
+
+
+class gender(models.Model):
+    gender = models.CharField(max_length=225)
+
+    def __str__(self):
+        return self.gender
+    
+class type(models.Model):
+    status = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.status
+    
+class edu_grade(models.Model):
+    grade = models.CharField(max_length=225)
+
+    def __str__(self):
+        return self.grade
+
 class state_region(models.Model):
     state_name = models.CharField(max_length=225)
     created_at = models.DateField(auto_now_add=True)
@@ -45,21 +73,21 @@ class employee_profile(models.Model):
     nrc_no = models.CharField(max_length=225, unique=True)
     fathername = models.CharField(max_length=225)
     mothername = models.CharField(max_length=225)
-    gender = models.CharField(max_length=225)
+    gender = models.ForeignKey(gender, on_delete=models.CASCADE)
     race = models.CharField(max_length=225, blank=True, null=True)
     religion = models.CharField(max_length=225, blank=True, null=True)
     dob = models.DateField()
-    marital = models.CharField(max_length=225)
+    marital = models.ForeignKey(marital, on_delete=models.CASCADE)
     entrydate = models.DateField()
-    department = models.CharField(max_length=225)
-    position = models.CharField(max_length=225)
-    type = models.CharField(max_length=225)
-    education = models.CharField(max_length=225, blank=True, null=True)
+    department = models.ForeignKey(department, on_delete=models.CASCADE)
+    position = models.ForeignKey(position, on_delete=models.CASCADE)
+    type = models.ForeignKey(type, on_delete=models.CASCADE)
+    education = models.ForeignKey(edu_grade, on_delete=models.CASCADE)
     phone = models.CharField(max_length=225, blank=True, null=True)
     address = models.TextField() 
-    township = models.CharField(max_length=225)
-    district = models.CharField(max_length=225)
-    state_region = models.CharField(max_length=225)
+    township = models.ForeignKey(township, on_delete=models.CASCADE)
+    district = models.CharField(max_length=225, blank=True, null=True)
+    state_region = models.ForeignKey(state_region, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='', blank=True, null=True)
     familytable = models.ImageField(upload_to='', blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)

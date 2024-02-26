@@ -20,3 +20,10 @@ class townshipadmin(admin.ModelAdmin):
 admin.site.register(township,townshipadmin)
 
 admin.site.register(employee_profile)
+
+admin.site.register(education_profile)
+admin.site.register(work_exp)
+admin.site.register(gender)
+admin.site.register(marital)
+admin.site.register(type)
+admin.site.register(edu_grade)

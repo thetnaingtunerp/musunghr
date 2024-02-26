@@ -16,13 +16,13 @@
 	  <br>
 	{% endif %}
     <div class="pd-20">
-        <a href="#" class="btn btn-sm btn-primary">+ Add New Employee</a>
+        <a href="{% url 'myapp:EmpCreate' %}" class="btn btn-sm btn-primary">+ Add New Employee</a>
 
         
 
     </div>
     <div class="pb-20">
-        <table class="data-table table stripe hover nowrap">
+        <table class="table hover multiple-select-row data-table-export nowrap">
             <thead>
             <tr class="table-primary">
 
@@ -49,7 +49,7 @@
                 <td>{{p.entrydate}}</td>
                 <td>{{p.phone}}</td>
                 <td>
-                    <a href="#" class="btn btn-sm btn-outline-info">View More</a>                    
+                    <a href="{% url 'myapp:EmployeeDetailView' p.id %}" class="btn btn-sm btn-outline-info">View More</a>                    
                 </td>
                 
                 
