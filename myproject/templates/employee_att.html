@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- time -->
+<div class="row">
+<div class="display-date">
+  <span id="day">day</span>,
+  <span id="daynum">00</span>
+  <span id="month">month</span>
+  <span id="year">0000</span>
+  <span class="display-time"></span>
+</div>
+<!-- <div class="display-time"></div> -->
+</div>
+
+<!-- Bootstrap Select Start -->
+<div class="row pd-20 card-box mb-30">
+    <div class="col-md-4">
+        
+        <form action="{% url 'myapp:EmployeeAtt' %}" method="post">{% csrf_token %}
+            <input type="number" name="emp" id="" autofocus class="form-control" placeholder="Please Scan">
+            <input type="submit" hidden>
+        </form>
+        {% if message %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong> {{message}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endif %}
+        {% if success %}
+        <hr>
+        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+            <div class="card-header">CheckIn</div>
+            <div class="card-body">
+              <!-- <h5 class="card-title">EmployeeName :</h5> -->
+              <p class="card-text">EmployeeID : {{emp_obj.id}}</p>
+              <p class="card-text">EmployeeName : {{emp_obj.employee_name}}</p>
+              <p class="card-text">Department : {{emp_obj.department}}</p>
+            </div>
+          </div>
+        {% endif %}
+        
+        
+          
+         
+
+    </div>
+    <div class="col-md-8">
+        <input type="text" name="" id="" placeholder="Attendance List of Today" class="form-control" disabled>
+        <hr>
+                
+<div class="table-responsive">
+	<table class="data-table table table-striped">
+	  <thead>
+	    <tr>
+            <th class="text-center">Employee ID</th>
+            <th>Employee</th>
+            <th>CheckIn</th>
+            <th>Checkout</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    {% for p in emp %}
+            <tr>
+                <td class="table-plus text-center"><b>{{p.id}}</b></td>
+                <td>{{p.employee}}</td>
+                <td>{{p.entry_time}}</td>
+                <td>{{p.checkout_time}}</td>
+                
+
+            </tr>
+            {% endfor %}
+	  </tbody>
+	</table>
+</div>
+	
+
+    </div>
+</div>
+
+
+<!-- Time Style and Script -->
+
+<style>
+  
+  .display-date {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+  
+  .display-time {
+    display: flex;
+    font-size: 2rem;
+    font-weight: bold;
+    /* border: 2px solid #ffd868; */
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: ease-in-out 0.1s;
+    transition-property: background, box-shadow, color;
+    -webkit-box-reflect: below 2px
+      linear-gradient(transparent, rgba(255, 255, 255, 0.05));
+  }
+  
+  .display-time:hover {
+    background: #ffd868;
+    box-shadow: 0 0 30px#ffd868;
+    color: #272727;
+    cursor: pointer;
+  }
+  
+  </style>
+  
+  
+  <script>
+    const displayTime = document.querySelector(".display-time");
+  // Time
+  function showTime() {
+    let time = new Date();
+    displayTime.innerText = time.toLocaleTimeString("en-US", { hour12: false });
+    setTimeout(showTime, 1000);
+  }
+  
+  showTime();
+  
+  // Date
+  function updateDate() {
+    let today = new Date();
+  
+    // return number
+    let dayName = today.getDay(),
+      dayNum = today.getDate(),
+      month = today.getMonth(),
+      year = today.getFullYear();
+  
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const dayWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    // value -> ID of the html element
+    const IDCollection = ["day", "daynum", "month", "year"];
+    // return value array with number as a index
+    const val = [dayWeek[dayName], dayNum, months[month], year];
+    for (let i = 0; i < IDCollection.length; i++) {
+      document.getElementById(IDCollection[i]).firstChild.nodeValue = val[i];
+    }
+  }
+  
+  updateDate();
+  </script>
+  
+  
+
+
+{% endblock content %}
+
