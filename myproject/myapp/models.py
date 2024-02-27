@@ -112,4 +112,14 @@ class work_exp(models.Model):
     from_date = models.DateField()
     to_date = models.DateField()
 
+class employee_attendance(models.Model):
+    employee = models.ForeignKey(employee_profile, on_delete=models.CASCADE)
+    entry_time = models.DateTimeField()
+    checkout_time = models.DateTimeField(blank=True, null=True)
+    att_hr = models.FloatField(blank=True, null=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.employee.employee_name
 

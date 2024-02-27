@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404, HttpResponse
 from .models import *
 from .form import *
 
@@ -10,6 +10,7 @@ from django.views.generic import TemplateView, View, CreateView, DetailView,Form
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+import datetime
 
 
 from django.forms import modelformset_factory
@@ -201,3 +202,64 @@ class EmpCreate(EmpProfileInline, CreateView):
                 'variants': EduFormSet(self.request.POST or None, self.request.FILES or None, prefix='variants'),
                 'images': WorkexpFormSet(self.request.POST or None, self.request.FILES or None, prefix='images'),
             }
+
+
+# Employee Attendance
+class EmployeeAtt(View):
+    def get(self,request):
+        d = datetime.datetime.now()
+        emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
+        message = None
+        context = {'emp':emp, 'message':message}
+        return render(request, 'employee_att.html', context)
+    
+    def post(self, request):
+        e = request.POST.get('emp')
+        d=datetime.datetime.now()
+        
+        message = None
+        if not e:
+            message = "Please Scan Again"
+            emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
+            context = {'emp':emp, 'message':message}
+            return render(request, 'employee_att.html', context)
+
+        else:
+                try:
+                    emp_obj = employee_profile.objects.get(id=e)
+                    e_save = employee_attendance(employee=emp_obj, entry_time=d)
+                    e_save.save()
+           
+                    emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
+                    
+                    success = "Success"
+                    context = {'emp':emp, 'success':success, 'emp_obj':emp_obj}
+                    return render(request, 'employee_att.html', context)
+                except employee_profile.DoesNotExist:
+                    emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
+                    message = "Attendance Fail Try Again"
+                    context = {'emp':emp, 'message':message}
+                    return render(request, 'employee_att.html', context)
+
+        
+                    
+            # emp_obj = employee_profile.objects.get(id=e)
+            # if emp_obj:
+            #     e_save = employee_attendance(employee=emp_obj, entry_time=d)
+            #     e_save.save()
+           
+            #     emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
+            #     message = "Success"
+            #     context = {'emp':emp, 'message':message}
+            #     return render(request, 'employee_att.html', context)
+            # else:
+            #     emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
+            #     message = "Fail"
+            #     context = {'emp':emp, 'message':message}
+            #     return render(request, 'employee_att.html', context)
+
+
+            
+        
+
+
