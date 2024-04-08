@@ -304,7 +304,8 @@ class DailyAttReport(View):
 class EmployeeGatepass(View):
     def get(self, request):
         gp = emp_gatepass.objects.all()
-        context = {'gp':gp}
+        emp = employee_profile.objects.all()
+        context = {'gp':gp, 'emp':emp}
         return render(request, 'EmployeeGatepass.html', context)
 
 # End Gate Pass Section
