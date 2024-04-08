@@ -303,7 +303,9 @@ class DailyAttReport(View):
 # Start Gate Pass Section
 class EmployeeGatepass(View):
     def get(self, request):
-        return render(request, 'EmployeeGatepass.html')
+        gp = emp_gatepass.objects.all()
+        context = {'gp':gp}
+        return render(request, 'EmployeeGatepass.html', context)
 
 # End Gate Pass Section
 
