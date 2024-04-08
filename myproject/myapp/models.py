@@ -123,3 +123,17 @@ class employee_attendance(models.Model):
     def __str__(self):
         return self.employee.employee_name
 
+class emp_gatepass(models.Model):
+    employee_name = models.CharField(max_length=255)
+    emp_code = models.CharField(max_length=255)
+    department = models.CharField(max_length=255)
+    reason = models.CharField(max_length=255)
+    departure = models.DateTimeField(blank=True, null=True)
+    arrival_time = models.DateTimeField(blank=True, null=True)
+    approved_by = models.CharField(max_length=255)
+    status = models.PositiveIntegerField(default=0)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.employee_name

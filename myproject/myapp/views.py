@@ -242,24 +242,68 @@ class EmployeeAtt(View):
                     return render(request, 'employee_att.html', context)
 
         
-                    
-            # emp_obj = employee_profile.objects.get(id=e)
-            # if emp_obj:
-            #     e_save = employee_attendance(employee=emp_obj, entry_time=d)
-            #     e_save.save()
-           
-            #     emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
-            #     message = "Success"
-            #     context = {'emp':emp, 'message':message}
-            #     return render(request, 'employee_att.html', context)
-            # else:
-            #     emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
-            #     message = "Fail"
-            #     context = {'emp':emp, 'message':message}
-            #     return render(request, 'employee_att.html', context)
+class AttCheckout(View):
+    def get(self, request):
+        d = datetime.datetime.now()
+        emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
+        message = None
+        context = {'emp':emp, 'message':message}
+        return render(request, 'AttCheckout.html', context)
 
+    def post(self, request):
+        e = request.POST.get('emp')
+        d=datetime.datetime.now()
+        
+        message = None
+        if not e:
+            message = "Please Scan Again"
+            emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
+            context = {'emp':emp, 'message':message}
+            return render(request, 'AttCheckout.html', context)
+
+        else:
+                try:
+                    emp_obj = employee_profile.objects.get(id=e)
+                    emp_check = employee_attendance.objects.filter(created_at=d, employee=emp_obj)
+                    if emp_check:
+                        emp_check = employee_attendance.objects.filter(created_at=d, employee=emp_obj).update(checkout_time=d)
+                    else:
+                        emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
+                        message = "Checkout Fail Try Again"
+                        context = {'emp':emp, 'message':message}
+                        return render(request, 'AttCheckout.html', context)
+                    # emp_check = employee_attendance.objects.filter(created_at=d, employee=emp_obj).update(checkout_time=d)
+                    # e_save = employee_attendance(employee=emp_obj, entry_time=d)
+                    # e_save.save()
+           
+                    emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
+                    
+                    success = "Success"
+                    context = {'emp':emp, 'success':success, 'emp_obj':emp_obj}
+                    return render(request, 'AttCheckout.html', context)
+                except employee_profile.DoesNotExist:
+                    emp = employee_attendance.objects.filter(created_at=d).order_by('-id')
+                    message = "Attendance Fail Try Again"
+                    context = {'emp':emp, 'message':message}
+                    return render(request, 'AttCheckout.html', context)                
+
+class DailyAttReport(View):
+    def get(self, request):
+        d=datetime.datetime.now()
+        emp = employee_attendance.objects.filter(created_at=d)
+        success = "Success"
+        context = {'emp':emp, 'success':success}
+        return render(request, 'DailyAttReport.html', context)
+
+    def post(self, request):
+        pass
 
             
         
+# Start Gate Pass Section
+class EmployeeGatepass(View):
+    def get(self, request):
+        return render(request, 'EmployeeGatepass.html')
 
+# End Gate Pass Section
 

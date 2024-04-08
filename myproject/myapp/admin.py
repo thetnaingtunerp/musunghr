@@ -19,6 +19,12 @@ class townshipadmin(admin.ModelAdmin):
     list_display = ('id','township','state','created_at','updated_at')
 admin.site.register(township,townshipadmin)
 
+
+class emp_gatepass_admin(admin.ModelAdmin):
+    list_display = ('id', 'employee_name')
+admin.site.register(emp_gatepass, emp_gatepass_admin)
+
+
 admin.site.register(employee_profile)
 
 admin.site.register(education_profile)

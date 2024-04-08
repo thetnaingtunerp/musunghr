@@ -85,84 +85,12 @@
 		<!-- End Google Tag Manager -->
 	</head>
 	<body>
-<!--		<div class="pre-loader">-->
-<!--			<div class="pre-loader-box">-->
-<!--				<div class="loader-logo">-->
-<!--					<img src="vendors/images/deskapp-logo.svg" alt="" />-->
-<!--				</div>-->
-<!--				<div class="loader-progress" id="progress_div">-->
-<!--					<div class="bar" id="bar1"></div>-->
-<!--				</div>-->
-<!--				<div class="percent" id="percent1">0%</div>-->
-<!--				<div class="loading-text">Loading...</div>-->
-<!--			</div>-->
-<!--		</div>-->
+
 
 		<div class="header">
 			<div class="header-left">
 				<div class="menu-icon bi bi-list"></div>
-<!--				<div-->
-<!--					class="search-toggle-icon bi bi-search"-->
-<!--					data-toggle="header_search"-->
-<!--				></div>-->
-<!--				<div class="header-search">-->
-<!--					<form>-->
-<!--						<div class="form-group mb-0">-->
-<!--							<i class="dw dw-search2 search-icon"></i>-->
-<!--							<input-->
-<!--								type="text"-->
-<!--								class="form-control search-input"-->
-<!--								placeholder="Search Here"-->
-<!--							/>-->
-<!--							<div class="dropdown">-->
-<!--								<a-->
-<!--									class="dropdown-toggle no-arrow"-->
-<!--									href="#"-->
-<!--									role="button"-->
-<!--									data-toggle="dropdown"-->
-<!--								>-->
-<!--									<i class="ion-arrow-down-c"></i>-->
-<!--								</a>-->
-<!--								<div class="dropdown-menu dropdown-menu-right">-->
-<!--									<div class="form-group row">-->
-<!--										<label class="col-sm-12 col-md-2 col-form-label"-->
-<!--											>From</label-->
-<!--										>-->
-<!--										<div class="col-sm-12 col-md-10">-->
-<!--											<input-->
-<!--												class="form-control form-control-sm form-control-line"-->
-<!--												type="text"-->
-<!--											/>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--									<div class="form-group row">-->
-<!--										<label class="col-sm-12 col-md-2 col-form-label">To</label>-->
-<!--										<div class="col-sm-12 col-md-10">-->
-<!--											<input-->
-<!--												class="form-control form-control-sm form-control-line"-->
-<!--												type="text"-->
-<!--											/>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--									<div class="form-group row">-->
-<!--										<label class="col-sm-12 col-md-2 col-form-label"-->
-<!--											>Subject</label-->
-<!--										>-->
-<!--										<div class="col-sm-12 col-md-10">-->
-<!--											<input-->
-<!--												class="form-control form-control-sm form-control-line"-->
-<!--												type="text"-->
-<!--											/>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--									<div class="text-right">-->
-<!--										<button class="btn btn-primary">Search</button>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</form>-->
-<!--				</div>-->
+
 				<div><b class="text-primary"></b></div>
 			</div>
 			<div class="header-right">
@@ -422,9 +350,9 @@
 		<div class="left-side-bar">
 			<div class="brand-logo">
 				<a href="#">
-					<img src="{% static 'vendors/images/headnav.svg' %}" alt="" class="dark-logo" />
+					<img src="{% static 'vendors/images/musung.png' %}" alt="" class="dark-logo" />
 					<img
-						src="{% static 'vendors/images/headnav.svg' %}"
+						src="{% static 'vendors/images/musung.png' %}"
 						alt=""
 						class="light-logo"
 					/>
@@ -442,6 +370,12 @@
 								><span class="mtext">ပင်မစာမျက်နှာ</span>
 							</a>
 						</li>
+						<li>
+							<a href="{% url 'myapp:Employee_List' %}" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-analytics-15"></span
+								><span class="mtext">Gate Pass</span>
+							</a>
+						</li>
 
 						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
@@ -451,8 +385,24 @@
 							</a>
 							<ul class="submenu">
 								<li><a href="{% url 'myapp:Employee_List' %}">EmployeeList</a></li>
-								<li><a href="{% url 'myapp:EmpCreate' %}">CreateEmployee</a></li>
+<!--								<li><a href="{% url 'myapp:EmpCreate' %}">CreateEmployee</a></li>-->
 								<li><a href="{% url 'myapp:EmployeeAtt' %}">EmployeeAtt</a></li>
+								<li><a href="{% url 'myapp:AttCheckout' %}">AttCheckout</a></li>
+								
+								
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle">
+								<span class="micon bi bi-person-workspace"></span
+								><span class="mtext">Report</span>
+								
+							</a>
+							<ul class="submenu">
+								<li><a href="{% url 'myapp:DailyAttReport' %}">DailyAttReport</a></li>
+								{% comment %} <li><a href="{% url 'myapp:EmpCreate' %}">CreateEmployee</a></li> {% endcomment %}
+								{% comment %} <li><a href="{% url 'myapp:EmployeeAtt' %}">EmployeeAtt</a></li> {% endcomment %}
+								{% comment %} <li><a href="{% url 'myapp:AttCheckout' %}">AttCheckout</a></li> {% endcomment %}
 								
 								
 							</ul>
@@ -476,7 +426,7 @@
 							<div class="dropdown-divider"></div>
 						</li>
 						<li>
-							<div class="sidebar-small-cap">kothet(09969255445)</div>
+							<div class="sidebar-small-cap">developed by thet_naing_tun(it)</div>
 						</li>
 
 
