@@ -3,6 +3,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load static %}
 <form enctype="multipart/form-data" class="container" method="post" id="product_form">
     {% csrf_token %}
     <!-- main form start --- in our case product form -->
@@ -200,8 +201,8 @@
         </div>
 </form>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<script src="{% static 'jquery/jquery-3.2.1.slim.min.js' %}"></script>
 <script>
     $(document).ready(function() {
         // when user clicks add more btn of images
