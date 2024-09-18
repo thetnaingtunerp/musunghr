@@ -20,6 +20,15 @@ from django.urls import reverse
 def test(request):
     return render(request, 'dashboard.html')
 
+class Dashboard(View):
+    def get(self, request):
+        today = datetime.date.today()
+        today_absent = daily_attendance_report.objects.filter(absent=True, date=today)
+        dept = department.objects.all()
+        emp = daily_attendance_report.objects.filter(date=today)
+        context = {'dept':dept, 'emp':emp}
+        return render(request, 'dashboard.html', context)
+
 class Department_Setup(View):
     def get(self,request):
         dept = department.objects.all()
@@ -216,6 +225,7 @@ class EmployeeAtt(View):
     def post(self, request):
         e = request.POST.get('emp')
         d=datetime.datetime.now()
+        dt=d.date()
         
         message = None
         if not e:
@@ -227,6 +237,8 @@ class EmployeeAtt(View):
         else:
                 try:
                     emp_obj = employee_profile.objects.get(id=e)
+                    
+                    
                     e_save = employee_attendance(employee=emp_obj, entry_time=d)
                     e_save.save()
            
@@ -310,3 +322,48 @@ class EmployeeGatepass(View):
 
 # End Gate Pass Section
 
+
+# Start Department Section
+class Department_list(View):
+    def get(self, request):
+        dept = department.objects.all()
+        context = {'dept':dept}
+        return render(request, 'departemt_list.html', context)
+
+# End Department Section
+
+class Employee_List_Filter_byLine(View):
+    def get(self, request, id):
+        dept = department.objects.get(id=id)
+        emp = employee_profile.objects.filter(department=dept)
+        context = {'dept':dept, 'emp':emp}
+        return render(request, 'Employee_List_Filter_byLine.html', context)
+    
+class DailyAttendanceByLine(View):
+    def get(self, request):
+        deptid = int(request.GET.get('did'))
+        dep_obj = department.objects.get(id=deptid)
+        today = datetime.date.today()
+        emp = employee_profile.objects.filter(department=dep_obj, resign=False)
+
+        for i in emp:
+            emp_att = daily_attendance_report(employee=i,department=dep_obj, date=today)
+            emp_att.save()
+        
+        return JsonResponse({'status':'success'})
+
+
+class TodayEmpAttendanceList(View):
+    def get(self, request,id):
+        dep_obj = department.objects.get(id=id)
+        today = datetime.date.today()
+        emp = daily_attendance_report.objects.filter(department=dep_obj,date=today)
+        context = {'emp':emp}
+        return render(request, 'TodayEmpAttendanceList.html', context)
+
+class ComfirmAbsent(View):
+    def get(self, request):
+        empid = int(request.GET.get('empid'))
+        emp = daily_attendance_report.objects.filter(id=empid).update(absent=True, attendance_day=0, ot_hour=0.0)
+        
+        return JsonResponse({'status':'success'})

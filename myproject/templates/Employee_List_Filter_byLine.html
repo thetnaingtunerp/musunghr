@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card-box mb-30">
+	
+    <div class="pd-20 m-2">
+        <h5>Employee_list</h5><hr>
+       
+        <table class="data-table table stripe hover nowrap">
+            <thead>
+            <tr class="table-info">
+
+                <th>no</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>SSB</th>
+                <th>Role</th>
+
+
+
+            </tr>
+            </thead>
+            <tbody id="emplist">
+            {% for p in emp %}
+            <tr class="emptr">
+                <td class="emppid">{{p.id}}</td>
+                <td><b>{{p.employee_name}}</b></td>
+                <td><b>{{p.employee_id}}</b></td>
+                <td>{{p.ssb_id}}</td>
+                <td>{{p.position}}</td>
+                
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+
+    </div>
+    
+</div>
+{% load static %}
+<script src="{% static 'jquery/jquery-3.2.1.slim.min.js' %}"></script>
+
+
+
+
+{% endblock content %}

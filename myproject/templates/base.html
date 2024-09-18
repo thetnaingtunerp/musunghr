@@ -127,18 +127,6 @@
 						<div class="dropdown-menu dropdown-menu-right">
 							<div class="notification-list mx-h-350 customscroll">
 								<ul>
-									{% for o in ord %}
-									<li>
-										<a href="{% url 'myapp:NotiOrderDetailView' o.id %}">
-											<!-- <img src="vendors/images/img.jpg" alt="" /> -->
-											<h4>{{o.customer_name}}-{{o.mobile}}</h4>
-											<p>{{o.created_at}}</p>
-											<p></p>
-										</a>
-									</li>
-									{% endfor %}
-									<p><a href="#" class="text-blue"><h5>See More Order Details ...</h5></a></p>
-									
 									
 									
 								</ul>
@@ -365,27 +353,30 @@
 				<div class="sidebar-menu">
 					<ul id="accordion-menu">
 						<li>
-							<a href="#" class="dropdown-toggle no-arrow">
+							<a href="/" class="dropdown-toggle no-arrow">
 								<span class="micon dw dw-analytics-15"></span
 								><span class="mtext">ပင်မစာမျက်နှာ</span>
 							</a>
 						</li>
+
 						<li>
-							<a href="{% url 'myapp:EmployeeGatepass' %}" class="dropdown-toggle no-arrow">
+							<a href="{% url 'myapp:Department_list' %}" class="dropdown-toggle no-arrow">
 								<span class="micon dw dw-analytics-15"></span
-								><span class="mtext">Gate Pass</span>
+								><span class="mtext">Attendance</span>
 							</a>
 						</li>
-
+						
+<!-- 
 						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
 								<span class="micon bi bi-person-workspace"></span
-								><span class="mtext">Employee</span>
+								><span class="mtext">HR</span>
 								
 							</a>
 							<ul class="submenu">
 								<li><a href="{% url 'myapp:Employee_List' %}">EmployeeList</a></li>
-<!--								<li><a href="{% url 'myapp:EmpCreate' %}">CreateEmployee</a></li>-->
+								<li><a href="{% url 'myapp:Department_list' %}">Attendance</a></li>
+								<li><a href="{% url 'myapp:EmployeeGatepass' %}">GatePass</a></li>
 								<li><a href="{% url 'myapp:EmployeeAtt' %}">EmployeeAtt</a></li>
 								<li><a href="{% url 'myapp:AttCheckout' %}">AttCheckout</a></li>
 								
@@ -406,13 +397,15 @@
 								
 								
 							</ul>
-						</li>
+						</li> -->
+
 						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
 								<span class="micon bi bi-tools"></span
 								><span class="mtext">Setup</span>
 							</a>
 							<ul class="submenu">
+								<li><a href="{% url 'myapp:Employee_List' %}">EmployeeList</a></li>
 								<li><a href="{% url 'myapp:Department_Setup' %}">Department</a></li>
 								<li><a href="{% url 'myapp:Position_Setup' %}">Position</a></li>
 								<li><a href="{% url 'myapp:Region_Setup' %}">State/Region</a></li>
@@ -425,9 +418,7 @@
 						<li>
 							<div class="dropdown-divider"></div>
 						</li>
-						<li>
-							<div class="sidebar-small-cap">developed by thet_naing_tun(it)</div>
-						</li>
+						
 
 
 					</ul>
@@ -457,6 +448,7 @@
 
 		<!-- welcome modal end -->
 		<!-- js -->
+
 		<script src="{% static 'vendors/scripts/core.js' %}"></script>
 		<script src="{% static 'vendors/scripts/script.min.js' %}"></script>
 		<script src="{% static 'vendors/scripts/process.js' %}"></script>

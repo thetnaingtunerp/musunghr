@@ -66,7 +66,7 @@ class township(models.Model):
 
 class employee_profile(models.Model):
     employee_id = models.CharField(max_length=225, unique=True)
-    contract_id = models.CharField(max_length=225)
+    contract_id = models.CharField(max_length=225,blank=True, null=True)
     finger_id = models.CharField(max_length=225,blank=True, null=True)
     employee_name = models.CharField(max_length=225, blank=True, null=True)
     ssb_id = models.CharField(max_length=225, blank=True, null=True)
@@ -77,17 +77,18 @@ class employee_profile(models.Model):
     race = models.CharField(max_length=225, blank=True, null=True)
     religion = models.CharField(max_length=225, blank=True, null=True)
     dob = models.DateField()
-    marital = models.ForeignKey(marital, on_delete=models.CASCADE)
+    marital = models.ForeignKey(marital, on_delete=models.CASCADE, blank=True, null=True)
     entrydate = models.DateField()
     department = models.ForeignKey(department, on_delete=models.CASCADE)
     position = models.ForeignKey(position, on_delete=models.CASCADE)
-    type = models.ForeignKey(type, on_delete=models.CASCADE)
-    education = models.ForeignKey(edu_grade, on_delete=models.CASCADE)
+    type = models.ForeignKey(type, on_delete=models.CASCADE, blank=True, null=True)
+    education = models.ForeignKey(edu_grade, on_delete=models.CASCADE, blank=True, null=True)
     phone = models.CharField(max_length=225, blank=True, null=True)
     address = models.TextField() 
-    township = models.ForeignKey(township, on_delete=models.CASCADE)
+    township = models.ForeignKey(township, on_delete=models.CASCADE, blank=True, null=True)
     district = models.CharField(max_length=225, blank=True, null=True)
-    state_region = models.ForeignKey(state_region, on_delete=models.CASCADE)
+    state_region = models.ForeignKey(state_region, on_delete=models.CASCADE, blank=True, null=True)
+    resign = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='', blank=True, null=True)
     familytable = models.ImageField(upload_to='', blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
@@ -137,3 +138,20 @@ class emp_gatepass(models.Model):
 
     def __str__(self):
         return self.employee_name
+
+
+class daily_attendance_report(models.Model):
+    employee = models.ForeignKey(employee_profile, on_delete=models.CASCADE)
+    department = models.ForeignKey(department, on_delete=models.CASCADE, blank=True, null=True)
+    attendance_day = models.PositiveIntegerField(default=1)
+    ot_hour = models.FloatField(default=0.0, blank=True, null=True)
+    absent = models.BooleanField(default=False)
+    date = models.DateField()
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+
+
+
+

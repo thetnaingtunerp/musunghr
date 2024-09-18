@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card-box mb-30">
+	
+    <div class="pd-20 m-2">
+        <h5>Employee_list</h5><hr>
+       
+        <table class="data-table table stripe hover nowrap">
+            <thead>
+            <tr class="table-info">
+
+                <th>no</th>
+                <th>Name</th>
+                <th>Line</th>
+                
+                <th>Date</th>
+                <th>Details</th>
+
+
+
+            </tr>
+            </thead>
+            <tbody id="emplist">
+            {% for p in emp %}
+            <tr class="emptr">
+                <td class="emppid">{{p.id}}</td>
+                <td>
+                    
+                    {% if p.absent == True %}
+                    <span class="text-danger">{{p.employee}}</span>
+                    {% else %}
+                    <span >{{p.employee}}</span>
+                    {% endif %}
+
+                </td>
+                <td><b>{{p.employee.department}}</b></td>
+                
+                <td>{{p.date}}</td>
+                <td>
+                    <a href="#" class="text-blue h4" data-toggle="modal" data-target="#confirmation-{{p.id}}"><span class="micon bi bi-person-workspace"></span></a>
+
+                    <div class="modal fade" id="confirmation-{{p.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body text-center font-18">
+                                    
+                                    <h5 class="padding-top-30 mb-10 weight-500 text-danger">Are you sure to Absent?</h5>
+                                    <h6 class="padding-top-20 mb-30 weight-500">{{p.employee}}</h6>
+                                    <div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+                                        <div class="col-6">
+                                            <button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                                            NO
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="button" class="btn btn-danger border-radius-100 btn-block confirmation-btn yesBtn" data-dismiss="modal"><i class="fa fa-check"></i></button>
+                                            YES
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </td>
+                
+                
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+
+    </div>
+    
+</div>
+{% load static %}
+<script src="{% static 'jquery/jquery-3.2.1.slim.min.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+        //start comfirm absent
+$("#emplist").on('click', '.yesBtn', function() {
+    var currenttr = $(this).closest(".emptr");
+    var empid = currenttr.find(".emppid").html();
+    
+    $.ajax({
+    url: "/ComfirmAbsent/",
+    method: "GET",
+    data:{empid:empid},
+    success: function(data){
+        // console.log(data.status);
+
+        alert('Successfully');
+        window.setTimeout(function(){ } ,2000);
+                        location.reload();
+
+        // window.location.href = '/admin/';
+        // window.open('https://www.codexworld.com', '_blank');
+    },
+    error:function(){
+        alert('having some error contact to IT');
+    },
+                    
+  });//end ajax
+
+
+
+});//end comfirm absent
+    }); // doucment ready function
+</script>
+
+
+{% endblock content %}

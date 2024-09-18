@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card-box mb-30">
+	
+    <div class="pd-20 m-2">
+        <h5>Department_list</h5><hr>
+       
+        <table class="table stripe hover nowrap">
+            <thead>
+            <tr class="table-info">
+
+                <th class="text-center">Sir No</th>
+                <th class="text-center">Department Name</th>
+                
+                <th class="text-center">Attendance</th>
+                <th class="text-center">Today</th>
+
+
+
+            </tr>
+            </thead>
+            <tbody id="deptmentlist">
+            {% for p in dept %}
+            <tr class="depttr">
+                <td class="pid">{{p.id}}</td>
+                <td class="table-plus text-center">
+                    
+                    <a href="{% url 'myapp:Employee_List_Filter_byLine' p.id %}" >{{p.department_name}}</a>
+                </td>
+                
+                <td class="table-plus text-center"><button type="button" class="btn btn-sm btn-primary lineAttBtn">Attendance</button></td>
+                <td class="table-plus text-center"><a href="{% url 'myapp:TodayEmpAttendanceList' p.id %}" class="btn btn-sm btn-outline-info">Today</a></td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+
+    </div>
+    
+</div>
+{% load static %}
+<script src="{% static 'jquery/jquery-3.2.1.slim.min.js' %}"></script>
+
+<script>
+$(document).ready(function() {
+
+
+//start line attendance
+$("#deptmentlist").on('click', '.lineAttBtn', function() {
+  var currenttr = $(this).closest(".depttr");
+  var did = currenttr.find(".pid").html();
+  $.ajax({
+    url: "/DailyAttendanceByLine/",
+    method: "GET",
+    data:{did:did},
+    success: function(data){
+        // console.log(data.status);
+
+        alert('Attendance Successfully');
+        window.setTimeout(function(){ } ,2000);
+                        location.reload();
+
+        // window.location.href = '/admin/';
+        // window.open('https://www.codexworld.com', '_blank');
+    },
+    error:function(){
+        alert('having some error contact to IT');
+    },
+                    
+  });//end ajax
+
+
+
+
+
+});// end line attendance
+
+
+
+
+
+
+}); //end document ready function
+</script>
+
+
+
+{% endblock content %}
