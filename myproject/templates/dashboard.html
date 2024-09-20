@@ -9,8 +9,17 @@
 		<div class="card-box pd-30 height-100-p">
 			<div class="progress-box text-center">
 				
+				<h5 class="text-light-green padding-top-10 h5">Today Employee</h5>
+				<span class="d-block emp_att">{{emp_att}} </span>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6 col-sm-12 mb-30">
+		<div class="card-box pd-30 height-100-p">
+			<div class="progress-box text-center">
+				
 				<h5 class="text-light-green padding-top-10 h5">Today Attendance</h5>
-				<span class="d-block">3000 </span>
+				<span class="d-block emp_att">{{emp_att}} </span>
 			</div>
 		</div>
 	</div>
@@ -19,7 +28,7 @@
 			<div class="progress-box text-center">
 				 
 				<h5 class="text-light-orange padding-top-10 h5">Today Absent</h5>
-				<span class="d-block">123</span>
+				<span class="d-block today_absent">{{today_absent}}</span>
 			</div>
 		</div>
 	</div>
@@ -28,7 +37,9 @@
 			<div class="progress-box text-center">
 				 
 				<h5 class="text-blue padding-top-10 h5">Absent Rate</h5>
-				<span class="d-block">8% </span>
+				<span class="d-block text-danger" id="abRate">{{perCent}} %</span>
+				
+				
 			</div>
 		</div>
 	</div>
@@ -44,141 +55,113 @@
 </div>
 
 
-<div class="bg-white border-radius-4 box-shadow mb-30">
-	<div class="row no-gutters">
-		<div class="col-lg-3 col-md-4 col-sm-12">
-			<div class="chat-list bg-light-gray">
-				<div class="chat-search">
-					<span class="ti-search"></span>
-					<input type="text" placeholder="Search">
-				</div>
-				<div class="notification-list chat-notification-list customscroll">
-					<ul>
-						{% for i in dept %}
-						<li>
-							<a href="#">
-								<!-- <img src="{% static 'vendors/images/mlogo.png' %}" alt=""> -->
-								<h3 class="clearfix">{{i.department_name}}</h3>
-								<!-- <p><i class="fa fa-circle text-light-green"></i> online</p> -->
-							</a>
-						</li>
-						{% endfor %}
-						<!-- <li class="active">
-							<a href="#">
-								<img src="vendors/images/img.jpg" alt="">
-								<h3 class="clearfix">John Doe</h3>
-								<p><i class="fa fa-circle text-light-green"></i> online</p>
-							</a>
-						</li> -->
-						
-						
-						
-					</ul>
+
+
+<div class="card-box mb-30">
+	
+    <div class="pd-20 m-2">
+        <a href="#" class="btn-block h4 text-blue" data-toggle="modal" data-target="#Medium-modal1" type="button">
+			Department : {{dept_name}}
+		</a><hr>
+
+		<div class="modal fade" id="Medium-modal1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myLargeModalLabel">Department</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					</div>
+					<div class="modal-body">
+
+					{% for i in dept %}
+						<a href="{% url 'myapp:DashboardFilter' %}?dep={{i.id}}" class="btn btn-block btn-outline-info">{{i.department_name}}</a>
+					{% endfor %}
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-9 col-md-8 col-sm-12">
-			<div class="chat-detail">
-				<div class="chat-profile-header clearfix">
-					<div class="left">
-						<div class="clearfix">
-							<div class="chat-profile-photo">
-								<img src="{% static 'vendors/images/mlogo.png' %}" alt="">
-							</div>
-							<div class="chat-profile-name">
-								<h3>Department</h3>
-								<!-- <span>New York, USA</span> -->
-							</div>
-						</div>
-					</div>
-					<div class="right text-right">
-						<div class="dropdown">
-							<a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-								Setting
-							</a>
-							<div class="dropdown-menu dropdown-menu-right">
-								<a class="dropdown-item" href="#">Export Chat</a>
-								<a class="dropdown-item" href="#">Search</a>
-								<a class="dropdown-item text-light-orange" href="#">Delete Chat</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="chat-box">
-					<div class="chat-desc customscroll">
-						<table class="table stripe hover nowrap">
-							<thead>
-							<tr class="table-info">
-				
-								<th>no</th>
-								<th>Name</th>
-								<th>Line</th>
-								
-								<th>Date</th>
-								<th>Details</th>
-				
-				
-				
-							</tr>
-							</thead>
-							<tbody id="emplist">
-							{% for p in emp %}
-							<tr class="emptr">
-								<td class="emppid">{{p.id}}</td>
-								<td>
-									
-									{% if p.absent == True %}
-									<span class="text-danger">{{p.employee}}</span>
-									{% else %}
-									<span >{{p.employee}}</span>
-									{% endif %}
-				
-								</td>
-								<td><b>{{p.employee.department}}</b></td>
-								
-								<td>{{p.date}}</td>
-								<td>
-									<a href="#" class="text-blue h4" data-toggle="modal" data-target="#confirmation-{{p.id}}"><span class="micon bi bi-person-workspace"></span></a>
-				
-									<div class="modal fade" id="confirmation-{{p.id}}" tabindex="-1" role="dialog" aria-hidden="true">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-body text-center font-18">
-													
-													<h5 class="padding-top-30 mb-10 weight-500 text-danger">Are you sure to Absent?</h5>
-													<h6 class="padding-top-20 mb-30 weight-500">{{p.employee}}</h6>
-													<div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
-														<div class="col-6">
-															<button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
-															NO
-														</div>
-														<div class="col-6">
-															<button type="button" class="btn btn-danger border-radius-100 btn-block confirmation-btn yesBtn" data-dismiss="modal"><i class="fa fa-check"></i></button>
-															YES
-														</div>
-													</div>
-												</div>
+
+		
+       
+        <table class="data-table table stripe hover nowrap">
+            <thead>
+            <tr class="table-info">
+<th>Sir</th>
+                <th>Code</th>
+					<th>Name</th>
+					<th>Line</th>
+					
+					<th>Date</th>
+					<th>Action</th>
+
+
+
+            </tr>
+            </thead>
+            <tbody id="emplist">
+           
+
+			{% for p in emp %}
+				<tr class="emptr">
+					<td class="emppid">{{p.id}}</td>
+					<td class="emppid">{{p.employee.employee_id}}</td>
+					<td>
+						
+						{% if p.absent == True %}
+						<span class="text-danger">{{p.employee}}</span>
+						{% else %}
+						<span >{{p.employee}}</span>
+						{% endif %}
+	
+					</td>
+					<td><b>{{p.employee.department}}</b></td>
+					
+					<td>{{p.date}}</td>
+					<td>
+						<a href="#" class="text-blue h4" data-toggle="modal" data-target="#confirmation-{{p.id}}"><strong><i class="dw dw-more text-danger"></i></strong></a>
+	
+						<div class="modal fade" id="confirmation-{{p.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-body text-center font-18">
+										
+										<h5 class="padding-top-30 mb-10 weight-500 text-danger">Are you sure to Absent?</h5>
+										<h6 class="padding-top-20 mb-30 weight-500">{{p.employee}}</h6>
+										<div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+											<div class="col-6">
+												<button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+												NO
+											</div>
+											<div class="col-6">
+												<button type="button" class="btn btn-danger border-radius-100 btn-block confirmation-btn yesBtn" data-dismiss="modal"><i class="fa fa-check"></i></button>
+												YES
 											</div>
 										</div>
 									</div>
-				
-								   
-								</td>
-								
-								
-							</tr>
-							{% endfor %}
-				
-							</tbody>
-						</table>
-					</div>
-					<div class="chat-footer">
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+								</div>
+							</div>
+						</div>
+	
+					   
+					</td>
+					
+					
+				</tr>
+				{% endfor %}
+
+            </tbody>
+        </table>
+
+
+		
+
+
+    </div>
+    
 </div>
 
 
@@ -216,6 +199,10 @@ $("#emplist").on('click', '.yesBtn', function() {
 
 
 });//end comfirm absent
+
+
+
+
     }); // doucment ready function
 </script>
 

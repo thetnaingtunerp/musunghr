@@ -144,7 +144,7 @@
 							data-toggle="dropdown"
 						>
 							<span class="user-icon">
-								<img src="{% static 'vendors/images/applogo.png' %}" alt="" />
+								<img src="{% static 'vendors/images/mlogo.png' %}" alt="" />
 							</span>
 							<span class="user-name"></span>
 						</a>
@@ -335,7 +335,7 @@
 			</div>
 		</div>
 
-		<div class="left-side-bar">
+		<div class="left-side-bar open">
 			<div class="brand-logo">
 				<a href="#">
 					<img src="{% static 'vendors/images/musung.png' %}" alt="" class="dark-logo" />
@@ -363,6 +363,13 @@
 							<a href="{% url 'myapp:Department_list' %}" class="dropdown-toggle no-arrow">
 								<span class="micon dw dw-analytics-15"></span
 								><span class="mtext">Attendance</span>
+							</a>
+						</li>
+
+						<li>
+							<a href="{% url 'myapp:Department_list' %}" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-analytics-15"></span
+								><span class="mtext">Attendance Report</span>
 							</a>
 						</li>
 						
@@ -425,7 +432,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mobile-menu-overlay"></div>
+		<div class="mobile-menu-overlay show"></div>
 
 		<div class="main-container">
 			<div class="pd-ltr-20 xs-pd-20-10">

@@ -23,10 +23,44 @@ def test(request):
 class Dashboard(View):
     def get(self, request):
         today = datetime.date.today()
-        today_absent = daily_attendance_report.objects.filter(absent=True, date=today)
+        today_absent = daily_attendance_report.objects.filter(absent=True, date=today).count()
         dept = department.objects.all()
         emp = daily_attendance_report.objects.filter(date=today)
-        context = {'dept':dept, 'emp':emp}
+        emp_att = emp.count()
+
+        if emp_att == 0:
+            perCent = 0
+        else:
+            perCent = round((today_absent / emp_att ) * 100, 2)
+
+        # perCent = round((today_absent / emp_att ) * 100, 2)
+        
+        context = {'dept':dept, 'emp':emp, 'today_absent':today_absent, 'emp_att':emp_att, 'perCent':perCent}
+        return render(request, 'dashboard.html', context)
+
+class DashboardFilter(View):
+    def get(self, request):
+        today = datetime.date.today()
+        dept = department.objects.all()
+        
+        dept_get = int(request.GET.get('dep'))
+        dept_name = department.objects.get(id=dept_get)
+        
+        if dept_get == None:
+            emp = daily_attendance_report.objects.filter(date=today)
+            today_absent = daily_attendance_report.objects.filter(absent=True, date=today).count()
+            emp_att = emp.count()
+        else:
+            emp = daily_attendance_report.objects.filter(date=today, department=dept_get)
+            today_absent = daily_attendance_report.objects.filter(absent=True, date=today, department=dept_get).count()
+            emp_att = emp.count()
+            if emp_att == 0:
+                perCent = 0
+            else:
+                perCent = round((today_absent / emp_att ) * 100, 2)
+
+
+        context = {'dept':dept, 'emp':emp, 'today_absent':today_absent, 'dept_name':dept_name, 'emp_att':emp_att, 'perCent':perCent}
         return render(request, 'dashboard.html', context)
 
 class Department_Setup(View):
