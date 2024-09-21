@@ -24,6 +24,7 @@ urlpatterns = [
     path('Employee_List_Filter_byLine/<int:id>/', Employee_List_Filter_byLine.as_view(), name='Employee_List_Filter_byLine'),
     path('DailyAttendanceByLine/', DailyAttendanceByLine.as_view(), name='DailyAttendanceByLine'),
     path('TodayEmpAttendanceList/<int:id>/', TodayEmpAttendanceList.as_view(), name='TodayEmpAttendanceList'),
+    path('MonthlyAttendanceByLine/<int:id>/', MonthlyAttendanceByLine.as_view(), name='MonthlyAttendanceByLine'),
     path('ComfirmAbsent/', ComfirmAbsent.as_view(), name='ComfirmAbsent'),
 
     path('EmployeeGatepass/', EmployeeGatepass.as_view(), name='EmployeeGatepass'),

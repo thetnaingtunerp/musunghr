@@ -25,7 +25,7 @@ class emp_gatepass_admin(admin.ModelAdmin):
 admin.site.register(emp_gatepass, emp_gatepass_admin)
 
 class daily_attendance_report_admin(admin.ModelAdmin):
-    list_display = ('id', 'employee', 'date')
+    list_display = ('id', 'employee', 'attendance_day','ot_hour','absent','date')
 admin.site.register(daily_attendance_report, daily_attendance_report_admin)
 
 

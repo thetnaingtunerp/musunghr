@@ -16,6 +16,7 @@
                 
                 <th class="text-center">Attendance</th>
                 <th class="text-center">Today</th>
+                <th>Report</th>
 
 
 
@@ -35,6 +36,7 @@
                     <a href="{% url 'myapp:TodayEmpAttendanceList' p.id %}" class="btn btn-sm btn-outline-info">Today</a>
                     <a href="{% url 'myapp:Employee_List_Filter_byLine' p.id %}" class="btn btn-sm btn-info">Employee</a>
                 </td>
+                <td><a href="{% url 'myapp:MonthlyAttendanceByLine' p.id %}" class="btn btn-sm btn-info">monthly report</a></td>
             </tr>
             {% endfor %}
 

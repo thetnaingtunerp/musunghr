@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="card-box mb-30">
+	
+    <div class="pd-20 m-1">
+        
+        <a href="#" class="h4"> [ {{dept_obj}} ] </a>|
+        <button type="button" class="btn btn-sm" data-bgcolor="#00b489" data-color="#ffffff" data-toggle="modal" data-target="#datefilter-modal">
+             Filter <i class="fa fa-calendar" aria-hidden="true"></i>
+        </button>
+        <div class="modal fade" id="datefilter-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myLargeModalLabel">Filter</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <form action="{% url 'myapp:MonthlyAttendanceByLine' dept_obj.id %}" method="post">{% csrf_token %}
+                    <div class="modal-body">
+                        
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="startdate">Start Date</label>
+                                <input type="date" name="startdate" id="" class="form-control">
+                            </div>
+                            <div class="col-6">
+                                <label for="enddate">End Date</label>
+                                <input type="date" name="enddate" id="" class="form-control">
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn" data-bgcolor="#00b489" data-color="#ffffff">Filter <i class="fa fa-calendar" aria-hidden="true"></i></button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+       
+        <table class="table table-responsive">
+            
+            {% for employee in emp %}
+            <tbody>
+            
+            <tr>
+                <td>{{employee.employee_name}}</td>
+                
+                {% for entry in employee.daily_attendance_report_set.all %}
+
+                {% if entry.date < first_date %}
+                {% else %}
+
+                {% if entry.absent == True %}
+                <td class="text-center border bg-danger"><span class="text-white">{{entry.date|date:"d"}}</span><hr><span class="text-white">{{entry.date|date:"D"}}</span></td>
+                {% else %}
+                <td class="text-center border"><span>{{entry.date|date:"d"}}</span><hr><span>{{entry.date|date:"D"}}</span></td>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                
+            </tr>
+
+            </tbody>
+            {% endfor %}
+        </table>
+
+
+
+    </div>
+    
+</div>
+
+
+{% endblock content %}

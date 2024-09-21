@@ -387,6 +387,29 @@ class DailyAttendanceByLine(View):
         return JsonResponse({'status':'success'})
 
 
+class MonthlyAttendanceByLine(View):
+    def get(self, request, id):
+        today = datetime.date.today()
+        first_date = today.replace(day=1)
+        emp = employee_profile.objects.filter(department=id)
+        dept_id = id
+        dept_obj = department.objects.get(id=id)
+        context = {'emp':emp, 'first_date':first_date, 'dept_obj':dept_obj}
+        return render(request, 'MonthlyAttendanceByLine.html', context)
+    
+    def post(self, request, id):
+        today = datetime.date.today()
+        first_date = today.replace(day=1)
+        emp = employee_profile.objects.filter(department=id)
+        dept_id = id
+        dept_obj = department.objects.get(id=id)
+        context = {'emp':emp, 'first_date':first_date, 'dept_obj':dept_obj}
+        return render(request, 'MonthlyAttendanceByLine.html', context)
+
+
+
+
+
 class TodayEmpAttendanceList(View):
     def get(self, request,id):
         dep_obj = department.objects.get(id=id)
@@ -401,3 +424,5 @@ class ComfirmAbsent(View):
         emp = daily_attendance_report.objects.filter(id=empid).update(absent=True, attendance_day=0, ot_hour=0.0)
         
         return JsonResponse({'status':'success'})
+
+
