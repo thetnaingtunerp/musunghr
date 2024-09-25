@@ -147,6 +147,7 @@ class daily_attendance_report(models.Model):
     ot_hour = models.FloatField(default=0.0, blank=True, null=True)
     absent = models.BooleanField(default=False)
     date = models.DateField()
+    weekno = models.PositiveIntegerField(default=0)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

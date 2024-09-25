@@ -2,11 +2,19 @@
 
 {% block content %}
 
+<div class="card-box mb-2">
+
+    
+
+</div>
+
+
 
 <div class="card-box mb-30">
 	
     <div class="pd-20 m-1">
-        
+        <div class="row">
+        <div class="col-2">
         <a href="#" class="h4"> [ {{dept_obj}} ] </a>|
         <button type="button" class="btn btn-sm" data-bgcolor="#00b489" data-color="#ffffff" data-toggle="modal" data-target="#datefilter-modal">
              Filter <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -24,11 +32,11 @@
                         <div class="row">
                             <div class="col-6">
                                 <label for="startdate">Start Date</label>
-                                <input type="date" name="startdate" class="form-control">
+                                <input type="date" name="startdate" id="" class="form-control">
                             </div>
                             <div class="col-6">
                                 <label for="enddate">End Date</label>
-                                <input type="date" name="enddate" class="form-control">
+                                <input type="date" name="enddate" id="" class="form-control">
                             </div>
                             
                         </div>
@@ -41,6 +49,19 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="col">
+        <form action="{% url 'myapp:getAbsent' dept_id %}" method="get">{% csrf_token %}
+            <input type="date" name="startdate" value="{{startdate}}" hidden>
+            <input type="date" name="enddate" value="{{enddate}}" hidden>
+            <input type="number" name="lid" value="{{dept_id}}" hidden>
+            <input type="submit" value="Absent" class="btn btn-sm btn-danger">
+        </form>
+    </div>
+</div>
+
+
         <hr>
        
         <table class="table table-responsive">
@@ -53,9 +74,10 @@
                 
                 {% for entry in employee.daily_attendance_report_set.all %}
                 
-                {% if entry.date < first_date %}
+                {% if entry.created_at < fd or entry.created_at > ed %}
+                    <!-- <td>-</td> -->
                 {% else %}
-
+                    
                 {% if entry.absent == True %}
                 <td class="text-center border bg-danger">
                     <span class="text-white">{{entry.date|date:"d"}}</span><hr>
@@ -69,7 +91,14 @@
                    
                 </td>
                 {% endif %}
+
+
+
                 {% endif %}
+                
+                    <!-- <td>{{entry.created_at}}</td> -->
+              
+
                 {% endfor %}
                 
             </tr>

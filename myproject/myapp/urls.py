@@ -26,6 +26,7 @@ urlpatterns = [
     path('TodayEmpAttendanceList/<int:id>/', TodayEmpAttendanceList.as_view(), name='TodayEmpAttendanceList'),
     path('MonthlyAttendanceByLine/<int:id>/', MonthlyAttendanceByLine.as_view(), name='MonthlyAttendanceByLine'),
     path('ComfirmAbsent/', ComfirmAbsent.as_view(), name='ComfirmAbsent'),
+    path('getAbsent/<int:id>/', getAbsent.as_view(), name='getAbsent'),
 
     path('EmployeeGatepass/', EmployeeGatepass.as_view(), name='EmployeeGatepass'),
 ]

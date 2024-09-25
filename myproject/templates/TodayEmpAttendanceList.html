@@ -39,7 +39,44 @@
                 
                 <td>{{p.date}}</td>
                 <td>
-                    <a href="#" class="text-blue h4" data-toggle="modal" data-target="#confirmation-{{p.id}}"><span class="micon bi bi-person-workspace"></span></a>
+                    {% if p.absent == True %}
+                    <a href="#" class="text-danger h4" data-toggle="modal" data-target="#leave-{{p.id}}"><span class="badge badge-pill badge-danger">Absent</span></a>
+
+                    
+                    <div class="modal fade" id="leave-{{p.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body text-center font-18">
+                                    
+                                    <h5 class="padding-top-30 mb-10 weight-500 text-danger">Choose Leave Type</h5>
+                                    <h6 class="padding-top-20 mb-30 weight-500">{{p.employee}}</h6>
+                                    <div class="padding-bottom-30 row" style="max-width: 400px; margin: 0 auto;">
+                                        <div class="col-3">
+                                            <a href="#" class="btn btn-md btn-warning">C</a>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <a href="#" class="btn btn-md btn-success">M</a>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <a href="#" class="btn btn-md btn-info">E</a>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <a href="#" class="btn btn-md btn-primary">M</a>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    {% else %}
+                    <a href="#" class="text-blue h4" data-toggle="modal" data-target="#confirmation-{{p.id}}"><span class="badge badge-pill badge-info">Attendance</span></a>
 
                     <div class="modal fade" id="confirmation-{{p.id}}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -62,6 +99,9 @@
                             </div>
                         </div>
                     </div>
+
+                    
+                    {% endif %}
 
                    
                 </td>

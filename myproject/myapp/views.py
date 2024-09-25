@@ -379,9 +379,9 @@ class DailyAttendanceByLine(View):
         dep_obj = department.objects.get(id=deptid)
         today = datetime.date.today()
         emp = employee_profile.objects.filter(department=dep_obj, resign=False)
-
+        weedno = today.weekday()
         for i in emp:
-            emp_att = daily_attendance_report(employee=i,department=dep_obj, date=today)
+            emp_att = daily_attendance_report(employee=i,department=dep_obj, date=today, weekno=weedno)
             emp_att.save()
         
         return JsonResponse({'status':'success'})
@@ -398,14 +398,42 @@ class MonthlyAttendanceByLine(View):
         return render(request, 'MonthlyAttendanceByLine.html', context)
     
     def post(self, request, id):
-        today = datetime.date.today()
+        today = datetime.date.today() 
+        startdate = request.POST.get('startdate')
+        enddate = request.POST.get('enddate')
+
+        fd = datetime.datetime.strptime(startdate, '%Y-%m-%d').date()
+        ed = datetime.datetime.strptime(enddate, '%Y-%m-%d').date()
+        
+        #get weekend
+        #sat = ed.weekday()
+        #print(sat)
+
         first_date = today.replace(day=1)
         emp = employee_profile.objects.filter(department=id)
         dept_id = id
         dept_obj = department.objects.get(id=id)
-        context = {'emp':emp, 'first_date':first_date, 'dept_obj':dept_obj}
-        return render(request, 'MonthlyAttendanceByLine.html', context)
+        context = {'fd':fd,'ed':ed,'emp':emp, 'first_date':first_date, 'dept_obj':dept_obj, 'startdate':startdate, 'enddate':enddate, 'dept_id':dept_id}
+        return render(request, 'MonthlyAttendanceByLineEmpFilter.html', context)
 
+
+class getAbsent(View):
+    def get(self, request, id):
+        today = datetime.date.today() 
+        startdate = request.GET.get('startdate')
+        enddate = request.GET.get('enddate')
+
+        fd = datetime.datetime.strptime(startdate, '%Y-%m-%d').date()
+        ed = datetime.datetime.strptime(enddate, '%Y-%m-%d').date()
+
+        first_date = today.replace(day=1)
+        emp = employee_profile.objects.filter(department=id)
+        dept_id = id
+        dept_obj = department.objects.get(id=id)
+
+        context = {'fd':fd,'ed':ed,'emp':emp, 'first_date':first_date, 'dept_obj':dept_obj, 'startdate':startdate, 'enddate':enddate, 'dept_id':dept_id}
+        return render(request, 'getAbsent.html', context)
+        
 
 
 
